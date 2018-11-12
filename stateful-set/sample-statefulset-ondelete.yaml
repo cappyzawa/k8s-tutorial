@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sample-statefulset-ondelete
+spec:
+  selector:
+    matchLabels:
+      app: sample-app
+  serviceName:  sample-statefulset-ondelete
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.12
+  updateStrategy:
+    type: OnDelete
