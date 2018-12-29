@@ -1,0 +1,45 @@
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: sub-clusterrole1
+  labels:
+    app: sample-rbac
+rules:
+  - verbs:
+      - get
+    apiGroups:
+      - ""
+    resources:
+      - deployments
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: sub-clusterrole2
+  labels:
+    app: sample-rbac
+rules:
+  - verbs:
+      - get
+    apiGroups:
+      - ""
+    resources:
+      - services
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: sample-aggregated-clusterrole
+aggregationRule:
+  clusterRoleSelectors:
+    - matchLabels:
+        app: sample-rbac
+rules:
+  - verbs:
+      - get
+    apiGroups:
+      - ""
+    resources:
+      - pod
